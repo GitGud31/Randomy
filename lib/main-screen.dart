@@ -13,10 +13,12 @@ class _MainScreenState extends State<MainScreen> {
   final _controller = TextEditingController();
   bool _isDisabled;
   String _text;
+  List<String> _data;
 
   @override
   void initState() {
     super.initState();
+    _data = List<String>();
     _text = '';
     _isDisabled = true;
     _controller.addListener(() {});
@@ -32,7 +34,10 @@ class _MainScreenState extends State<MainScreen> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(onPressed: () {
-          _showBottomSheet(context);
+          _showBottomSheet(context, (data){
+            //
+            _data.add(data);
+          });
         }),
         appBar: AppBar(
           centerTitle: true,
@@ -41,10 +46,10 @@ class _MainScreenState extends State<MainScreen> {
           title: const Text('Randomy', style: TextStyle(color: Colors.black)),
         ),
         body: ListView.builder(
-          itemCount: 20,
+          itemCount: _data.length,
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text('${_text} ${index}'),
+              title: Text('${_data[index]}'),
             );
           },
         ),
@@ -52,7 +57,8 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  void _showBottomSheet(BuildContext context) {
+  //TODO: Clear TextField after configming input.
+  void _showBottomSheet(BuildContext context, Function(String) callback) {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
@@ -94,6 +100,7 @@ class _MainScreenState extends State<MainScreen> {
                         : () {
                             _text = _controller.value.text;
                             print(_text);
+                            callback(_text);
                             Navigator.of(context).pop();
                           }),
               ],
