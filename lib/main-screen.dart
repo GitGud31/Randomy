@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -14,10 +17,12 @@ class _MainScreenState extends State<MainScreen> {
   bool _isDisabled;
   String _text;
   List<String> _data;
+  Random random;
 
   @override
   void initState() {
     super.initState();
+    random = Random();
     _data = List<String>();
     _text = '';
     _isDisabled = true;
@@ -33,12 +38,37 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          _showBottomSheet(context, (data){
-            //
-            _data.add(data);
-          });
-        }),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+                child: Icon(Icons.radio_button_off),
+                onPressed: () async {
+                  int winner = random.nextInt(_data.length);
+
+                  await showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          title: Text('SELECTED'),
+                          content: Text('${_data[winner]}'),
+                        );
+                      });
+                }),
+            FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () {
+                  _showBottomSheet(context, (data) {
+                    //
+                    setState(() {
+                      _data.add(data);
+                    });
+                  });
+                }),
+          ],
+        ),
+        //TODO: Add ABOUT THIS APP ALERT DIALOG
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.transparent,
@@ -48,8 +78,16 @@ class _MainScreenState extends State<MainScreen> {
         body: ListView.builder(
           itemCount: _data.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text('${_data[index]}'),
+            //TODO: Swipe to dismiss TILE
+            return Padding(
+              padding:
+                  const EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0),
+              child: Card(
+                elevation: 4.0,
+                child: ListTile(
+                  title: Text('${_data[index]}'),
+                ),
+              ),
             );
           },
         ),
@@ -57,11 +95,10 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  //TODO: Clear TextField after configming input.
   void _showBottomSheet(BuildContext context, Function(String) callback) {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
         context: context,
         isScrollControlled: true,
         builder: (_) {
@@ -71,7 +108,8 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 Container(
                   alignment: Alignment.center,
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.only(
+                      left: 30.0, top: 30.0, right: 30.0, bottom: 15.0),
                   child: TextFormField(
                     autofocus: true,
                     enabled: true,
@@ -80,7 +118,8 @@ class _MainScreenState extends State<MainScreen> {
                       border: OutlineInputBorder(),
                       labelText: 'Type here...',
                     ),
-                    onChanged: (text) {
+                    onChanged: (_) {
+                      //TODO: IMPROVE code
                       if (_controller.value.text.isEmpty) {
                         setState(() {
                           _isDisabled = true;
@@ -93,95 +132,25 @@ class _MainScreenState extends State<MainScreen> {
                     },
                   ),
                 ),
-                RaisedButton(
-                    child: const Text('Confirm'),
-                    onPressed: _isDisabled
-                        ? null
-                        : () {
-                            _text = _controller.value.text;
-                            print(_text);
-                            callback(_text);
-                            Navigator.of(context).pop();
-                          }),
+                SizedBox(width: MediaQuery.of(context).size.width / 3),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: RaisedButton(
+                      child: const Text('Confirm'),
+                      onPressed: _isDisabled
+                          ? null
+                          : () {
+                              _text = _controller.value.text;
+                              print(_text);
+                              callback(_text);
+                              _isDisabled = true;
+                              _controller.clear();
+                              Navigator.of(context).pop();
+                            }),
+                ),
               ],
             ),
           );
         });
   }
 }
-
-// ///INPUT SCREEN
-// class InputScreen extends StatefulWidget {
-//   static Route<dynamic> route() {
-//     return MaterialPageRoute(builder: (BuildContext context) => InputScreen());
-//   }
-
-//   @override
-//   _InputScreenState createState() => _InputScreenState();
-// }
-
-// class _InputScreenState extends State<InputScreen> {
-//   final _controller = TextEditingController();
-//   bool _isDisabled;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _isDisabled = true;
-//     _controller.addListener(() {});
-//   }
-
-//   void dispose() {
-//     _controller.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         centerTitle: true,
-//         elevation: 0,
-//         backgroundColor: Colors.transparent,
-//         title: const Text('Write something',
-//             style: TextStyle(color: Colors.black)),
-//         leading: BackButton(color: Colors.black),
-//       ),
-//       body: ListView(
-//         children: [
-//           Container(
-//             alignment: Alignment.center,
-//             padding: const EdgeInsets.all(10),
-//             child: TextFormField(
-//               controller: _controller,
-//               decoration: InputDecoration(
-//                 border: OutlineInputBorder(),
-//                 labelText: 'Type here...',
-//               ),
-//               onChanged: (text) {
-//                 if (_controller.value.text.isEmpty) {
-//                   setState(() {
-//                     _isDisabled = true;
-//                   });
-//                 } else {
-//                   setState(() {
-//                     _isDisabled = false;
-//                   });
-//                 }
-//               },
-//             ),
-//           ),
-//           RaisedButton(
-//               child: const Text('Confirm'),
-//               onPressed: _isDisabled
-//                   ? null
-//                   : () {
-//                     String text = _controller.value.text;
-//                     print(text);
-//                       //Navigator.of(context).pop();
-//                     }),
-//         ],
-//       ),
-//     );
-//   }
-// }
