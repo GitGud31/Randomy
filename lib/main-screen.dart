@@ -7,7 +7,6 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-//TODO: add video demo
 //TODO: add comments
 
 class _MainScreenState extends State<MainScreen> {
