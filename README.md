@@ -4,7 +4,7 @@ Fun project: *Randomy* is a simple application that selects a random element fro
 
 ## Download APK
 
-- [Download]()
+- [Download](https://github.com/GitGud31/Randomy/tree/master/app_showcase) (app-release.apk)
 
 ## App DEMO
 
