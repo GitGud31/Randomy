@@ -1,10 +1,11 @@
 import 'package:Randomy/controllers/list-controller.dart';
-import 'package:Randomy/user.dart';
+import 'package:Randomy/utils/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'random-selected-button.dart';
+import '../random-selected-button.dart';
 import 'selection-page.dart';
+import 'utilities/app-theme.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -33,13 +34,22 @@ class _MainScreenState extends State<MainScreen> {
                 heroTag: Key('selection page button'),
                 child: Icon(Icons.add, color: Colors.white, size: 30),
                 onPressed: () {
-                  Get.to(SelectionPage(), arguments: listController);
+                  Get.toNamed('/SelectionPage', arguments: listController);
                 }),
           ],
         ),
         appBar: AppBar(
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
           title: const Text('Randomy',
-              style: TextStyle(color: Colors.black, fontSize: 30)),
+              style: TextStyle(fontSize: 30, color: Colors.amber)),
+          leading: IconButton(
+              icon: Icon(Icons.brightness_4_sharp, color: Colors.amber),
+              onPressed: () {
+                Get.changeTheme(
+                    Get.isDarkMode ? AppTheme.lightTheme : ThemeData.dark());
+              }),
           actions: [
             IconButton(
               icon: Icon(Icons.help, color: Colors.amber),

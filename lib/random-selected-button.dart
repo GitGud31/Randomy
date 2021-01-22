@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:Randomy/user.dart';
+import 'package:Randomy/utils/user.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 

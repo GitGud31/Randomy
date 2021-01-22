@@ -1,8 +1,8 @@
-import 'package:Randomy/main-screen.dart';
+import 'package:Randomy/views/main-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'user.dart';
+import '../utils/user.dart';
 
 class SelectionPage extends StatefulWidget {
   @override
@@ -17,7 +17,6 @@ class _SelectionPageState extends State<SelectionPage> {
   @override
   void initState() {
     super.initState();
-    // _data = List<User>();
     _isDisabled = true;
     _itemController.addListener(() {});
     _nameController.addListener(() {});
@@ -55,9 +54,15 @@ class _SelectionPageState extends State<SelectionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.amber),
+              onPressed: () {
+                Get.offNamed('/MainScreen');
+              }),
           title: const Text(
             'Selection Page',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.amber),
           ),
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -74,6 +79,7 @@ class _SelectionPageState extends State<SelectionPage> {
                   autofocus: true,
                   controller: _itemController,
                   decoration: InputDecoration(
+                    focusColor: Colors.amber,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
@@ -111,7 +117,6 @@ class _SelectionPageState extends State<SelectionPage> {
                     onPressed: _isDisabled
                         ? null
                         : () {
-
                             _isDisabled = true;
 
                             User user = User();
@@ -124,7 +129,7 @@ class _SelectionPageState extends State<SelectionPage> {
                             _nameController.clear();
                             _itemController.clear();
 
-                            Get.to(MainScreen());
+                            Get.offNamed('/MainScreen');
                           }),
               ),
             ],

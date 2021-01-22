@@ -1,6 +1,9 @@
-import 'package:Randomy/main-screen.dart';
+import 'package:Randomy/views/main-screen.dart';
+import 'package:Randomy/views/selection-page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'views/utilities/app-theme.dart';
 
 void main() {
   runApp(App());
@@ -10,14 +13,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.black,
-        floatingActionButtonTheme:
-            FloatingActionButtonThemeData(backgroundColor: Colors.amber),
-        appBarTheme: AppBarTheme(
-            centerTitle: true, color: Colors.transparent, elevation: 0),
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       home: MainScreen(),
+      getPages: [
+        GetPage(name: '/MainScreen', page: () => MainScreen()),
+        GetPage(name: '/SelectionPage', page: () => SelectionPage()),
+      ],
     );
   }
 }
