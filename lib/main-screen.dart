@@ -24,16 +24,15 @@ class _MainScreenState extends State<MainScreen> {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            RandomSelectButton(data: listController.list),
+            RandomSelectButton(
+              data: listController.list,
+              key: Key('random button'),
+            ),
             SizedBox(height: 10),
             FloatingActionButton(
+                heroTag: Key('selection page button'),
                 child: Icon(Icons.add, color: Colors.white, size: 30),
                 onPressed: () {
-                  // _showBottomSheet(context, (data) {
-                  //   setState(() {
-                  //     _data.add(data.itemName);
-                  //   });
-                  // });
                   Get.to(SelectionPage(), arguments: listController);
                 }),
           ],
@@ -65,7 +64,6 @@ class _MainScreenState extends State<MainScreen> {
                   padding:
                       const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                   child: Dismissible(
-                    //key: Key(_data[index]),
                     key: Key(listController.list[index].toString()),
                     direction: DismissDirection.endToStart,
                     background: Material(
@@ -79,7 +77,6 @@ class _MainScreenState extends State<MainScreen> {
                     onDismissed: (direction) {
                       // Remove the item from the data source.
                       setState(() {
-                        //_data.removeAt(index);
                         listController.list.removeAt(index);
                       });
                     },
@@ -88,7 +85,6 @@ class _MainScreenState extends State<MainScreen> {
                       child: Container(
                         decoration: BoxDecoration(border: Border.all(width: 2)),
                         child: ListTile(
-                          //title: Text('${_data[index]}'),
                           title: Text('${listController.list[index].itemName}'),
                           subtitle:
                               Text('${listController.list[index].creatorName}'),

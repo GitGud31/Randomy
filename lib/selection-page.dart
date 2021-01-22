@@ -111,7 +111,6 @@ class _SelectionPageState extends State<SelectionPage> {
                     onPressed: _isDisabled
                         ? null
                         : () {
-                            //callback(_nameController.value.text);
 
                             _isDisabled = true;
 
