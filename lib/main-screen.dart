@@ -1,6 +1,10 @@
+import 'package:Randomy/controllers/list-controller.dart';
+import 'package:Randomy/user.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'random-selected-button.dart';
+import 'selection-page.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -10,34 +14,7 @@ class MainScreen extends StatefulWidget {
 //TODO: add comments
 
 class _MainScreenState extends State<MainScreen> {
-  final _controller = TextEditingController();
-  bool _isDisabled;
-  List<String> _data;
-
-  @override
-  void initState() {
-    super.initState();
-    _data = List<String>();
-    _isDisabled = true;
-    _controller.addListener(() {});
-  }
-
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _disableButton(String _) {
-    if (_controller.value.text.isEmpty) {
-      setState(() {
-        _isDisabled = true;
-      });
-    } else {
-      setState(() {
-        _isDisabled = false;
-      });
-    }
-  }
+  final ListController listController = Get.put(ListController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +24,17 @@ class _MainScreenState extends State<MainScreen> {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            RandomSelectButton(data: _data),
+            RandomSelectButton(data: listController.list),
             SizedBox(height: 10),
             FloatingActionButton(
                 child: Icon(Icons.add, color: Colors.white, size: 30),
                 onPressed: () {
-                  _showBottomSheet(context, (data) {
-                    setState(() {
-                      _data.add(data);
-                    });
-                  });
+                  // _showBottomSheet(context, (data) {
+                  //   setState(() {
+                  //     _data.add(data.itemName);
+                  //   });
+                  // });
+                  Get.to(SelectionPage(), arguments: listController);
                 }),
           ],
         ),
@@ -80,98 +58,48 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ],
         ),
-        body: ListView.builder(
-          itemCount: _data.length,
-          itemBuilder: (_, index) {
-            return Padding(
-              padding:
-                  const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-              child: Dismissible(
-                key: Key(_data[index]),
-                direction: DismissDirection.endToStart,
-                background: Material(
-                  child: Container(
-                    padding: const EdgeInsets.only(right: 8),
-                    alignment: Alignment.centerRight,
-                    child: Icon(Icons.delete, color: Colors.white),
-                    decoration: BoxDecoration(color: Colors.red),
-                  ),
-                ),
-                onDismissed: (direction) {
-                  // Remove the item from the data source.
-                  setState(() {
-                    _data.removeAt(index);
-                  });
-                },
-                child: Material(
-                  elevation: 4.0,
-                  child: Container(
-                    decoration: BoxDecoration(border: Border.all(width: 2)),
-                    child: ListTile(
-                      title: Text('${_data[index]}'),
+        body: Obx(() => ListView.builder(
+              itemCount: listController.list.length,
+              itemBuilder: (_, index) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+                  child: Dismissible(
+                    //key: Key(_data[index]),
+                    key: Key(listController.list[index].toString()),
+                    direction: DismissDirection.endToStart,
+                    background: Material(
+                      child: Container(
+                        padding: const EdgeInsets.only(right: 8),
+                        alignment: Alignment.centerRight,
+                        child: Icon(Icons.delete, color: Colors.white),
+                        decoration: BoxDecoration(color: Colors.red),
+                      ),
+                    ),
+                    onDismissed: (direction) {
+                      // Remove the item from the data source.
+                      setState(() {
+                        //_data.removeAt(index);
+                        listController.list.removeAt(index);
+                      });
+                    },
+                    child: Material(
+                      elevation: 4.0,
+                      child: Container(
+                        decoration: BoxDecoration(border: Border.all(width: 2)),
+                        child: ListTile(
+                          //title: Text('${_data[index]}'),
+                          title: Text('${listController.list[index].itemName}'),
+                          subtitle:
+                              Text('${listController.list[index].creatorName}'),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            );
-          },
-        ),
+                );
+              },
+            )),
       ),
     );
   }
-
-  //BottomSheet handler method
-  void _showBottomSheet(BuildContext context, Function(String) callback) {
-    showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
-        builder: (contextBottomSheet) {
-          return Padding(
-            padding: MediaQuery.of(context).viewInsets,
-            child: Wrap(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.only(
-                      left: 30.0, top: 30.0, right: 30.0, bottom: 15.0),
-                  child: TextFormField(
-                    autofocus: true,
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                      ),
-                      labelText: 'Type here...',
-                    ),
-                    onChanged: _disableButton,
-                  ),
-                ),
-                SizedBox(
-                    width: MediaQuery.of(contextBottomSheet).size.width / 2.9),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: RaisedButton(
-                      color: Colors.amber,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: const Text('Confirm',
-                          style: TextStyle(color: Colors.white)),
-                      onPressed: _isDisabled
-                          ? null
-                          : () {
-                              callback(_controller.value.text);
-                              _isDisabled = true;
-                              _controller.clear();
-                              Navigator.of(contextBottomSheet).pop();
-                            }),
-                ),
-              ],
-            ),
-          );
-        });
-  }
 }
-

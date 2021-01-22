@@ -23,12 +23,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  awesome_dialog: ^1.3.1
   cupertino_icons: ^1.0.0
   flutter_launcher_icons: ^0.8.1
+  get: ^3.24.0
 
 flutter_icons:
   image_path: "assets/toss.png"
-  android: true 
+  android: true
 
 dev_dependencies:
   flutter_test:
@@ -41,4 +43,3 @@ flutter:
   assets:
     - assets/dice.png
     - assets/toss.png
-    - assets/dices.png

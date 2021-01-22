@@ -1,15 +1,17 @@
 import 'dart:math';
 
+import 'package:Randomy/user.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 class RandomSelectButton extends StatelessWidget {
   const RandomSelectButton({
     Key key,
-    @required List<String> data,
+    @required List<User> data,
   })  : _data = data,
         super(key: key);
 
-  final List<String> _data;
+  final List<User> _data;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,36 @@ class RandomSelectButton extends StatelessWidget {
         ),
         onPressed: () {
           selected = random.nextInt(_data.length);
-          showDialog(
-              context: context,
-              builder: (_) {
-                return AlertDialog(
-                  title: const Text('SELECTED'),
-                  content: Text('${_data[selected]}'),
-                );
-              });
+
+          AwesomeDialog(
+            context: context,
+            animType: AnimType.SCALE,
+            dialogType: DialogType.SUCCES,
+            btnOkColor: Color(0xFFFFC107),
+            body: Center(
+              child: Column(
+                children: [
+                  Text(
+                    '${_data[selected].itemName}',
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Text(
+                    '${_data[selected].creatorName}',
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            btnOkOnPress: () {},
+          )..show();
         });
   }
 }
