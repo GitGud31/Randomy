@@ -1,10 +1,8 @@
 import 'package:Randomy/controllers/list-controller.dart';
-import 'package:Randomy/utils/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../random-selected-button.dart';
-import 'selection-page.dart';
 import 'utilities/app-theme.dart';
 
 class MainScreen extends StatefulWidget {
@@ -98,21 +96,15 @@ class _MainScreenState extends State<MainScreen> {
                       child: Container(
                         decoration: BoxDecoration(border: Border.all(width: 2)),
                         child: ListTile(
+                          //TODO: keep, till title color is fixed
+                          tileColor: Colors.amber[400],
                           title: Text(
                             '${listController.list[index].itemName}',
-                            //TODO: theming here needs to be investigated more
                             style: TextStyle(
-                                color: Get.isDarkMode
-                                    ? Colors.black
-                                    : Colors.white),
+                                fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text(
-                            //TODO: theming here needs to be investigated more
                             '${listController.list[index].creatorName}',
-                            style: TextStyle(
-                                color: Get.isDarkMode
-                                    ? Colors.black
-                                    : Colors.white),
                           ),
                         ),
                       ),

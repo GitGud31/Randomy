@@ -36,6 +36,8 @@ class AppTheme {
     floatingActionButtonTheme:
         FloatingActionButtonThemeData(backgroundColor: Colors.amber),
     primaryTextTheme: TextTheme(
+      overline: TextStyle(color: Colors.black),
+      caption: TextStyle(color: Colors.black),
       headline1: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       headline2: TextStyle(color: Colors.black),
       headline3: TextStyle(color: Colors.black),
@@ -68,7 +70,7 @@ class AppTheme {
       bodyText2: TextStyle(fontFamily: 'Hind', color: Colors.black),
     ),
   );
-  
+
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey[900],
     appBarTheme: AppBarTheme(

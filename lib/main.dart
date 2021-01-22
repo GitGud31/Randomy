@@ -16,8 +16,16 @@ class App extends StatelessWidget {
       theme: AppTheme.lightTheme,
       home: MainScreen(),
       getPages: [
-        GetPage(name: '/MainScreen', page: () => MainScreen()),
-        GetPage(name: '/SelectionPage', page: () => SelectionPage()),
+        GetPage(
+          name: '/MainScreen',
+          page: () => MainScreen(),
+          transition: Transition.leftToRight,
+        ),
+        GetPage(
+          name: '/SelectionPage',
+          page: () => SelectionPage(),
+          transition: Transition.rightToLeft,
+        ),
       ],
     );
   }
