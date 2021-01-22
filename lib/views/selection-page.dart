@@ -60,7 +60,7 @@ class _SelectionPageState extends State<SelectionPage> {
               onPressed: () {
                 Get.offNamed('/MainScreen');
               }),
-          title: Text('Selection Page'),
+          title: Text('Selection Page', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
           elevation: 0,
           backgroundColor: Colors.transparent,
         ),
