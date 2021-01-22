@@ -14,7 +14,6 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
       home: MainScreen(),
       getPages: [
         GetPage(name: '/MainScreen', page: () => MainScreen()),

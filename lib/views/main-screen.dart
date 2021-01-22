@@ -32,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
             SizedBox(height: 10),
             FloatingActionButton(
                 heroTag: Key('selection page button'),
-                child: Icon(Icons.add, color: Colors.white, size: 30),
+                child: Icon(Icons.add, size: 30, color: Colors.white),
                 onPressed: () {
                   Get.toNamed('/SelectionPage', arguments: listController);
                 }),
@@ -42,25 +42,28 @@ class _MainScreenState extends State<MainScreen> {
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: const Text('Randomy',
-              style: TextStyle(fontSize: 30, color: Colors.amber)),
+          title: Text('Randomy', style: TextStyle(fontSize: 30)),
           leading: IconButton(
-              icon: Icon(Icons.brightness_4_sharp, color: Colors.amber),
+              icon: Icon(Icons.brightness_4_sharp),
               onPressed: () {
                 Get.changeTheme(
                     Get.isDarkMode ? AppTheme.lightTheme : ThemeData.dark());
               }),
           actions: [
             IconButton(
-              icon: Icon(Icons.help, color: Colors.amber),
+              icon: Icon(Icons.help),
               onPressed: () async {
                 await showDialog(
                     context: context,
                     builder: (_) {
                       return AlertDialog(
-                        title: const Text('Description'),
-                        content: const Text(
-                            'Simple Application that selects a random element from user List on inputs.'),
+                        title: Text('Description'),
+                        content: Text(
+                          'Simple Application that selects a random element from user List on inputs.',
+                          style: TextStyle(
+                              color:
+                                  Get.isDarkMode ? Colors.white : Colors.black),
+                        ),
                       );
                     });
               },
@@ -95,9 +98,22 @@ class _MainScreenState extends State<MainScreen> {
                       child: Container(
                         decoration: BoxDecoration(border: Border.all(width: 2)),
                         child: ListTile(
-                          title: Text('${listController.list[index].itemName}'),
-                          subtitle:
-                              Text('${listController.list[index].creatorName}'),
+                          title: Text(
+                            '${listController.list[index].itemName}',
+                            //TODO: theming here needs to be investigated more
+                            style: TextStyle(
+                                color: Get.isDarkMode
+                                    ? Colors.black
+                                    : Colors.white),
+                          ),
+                          subtitle: Text(
+                            //TODO: theming here needs to be investigated more
+                            '${listController.list[index].creatorName}',
+                            style: TextStyle(
+                                color: Get.isDarkMode
+                                    ? Colors.black
+                                    : Colors.white),
+                          ),
                         ),
                       ),
                     ),

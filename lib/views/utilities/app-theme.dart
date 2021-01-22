@@ -4,66 +4,71 @@ class AppTheme {
   //
   AppTheme._();
 
-  static final ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.white,
-    tabBarTheme: TabBarTheme(
-      labelColor: Colors.amber,
-      unselectedLabelColor: Colors.black,
-      indicatorSize: TabBarIndicatorSize.label,
-    ),
+  static final ThemeData lightTheme = ThemeData.light().copyWith(
+    // Define the default brightness and colors.
+    brightness: Brightness.light,
+    primaryColor: Colors.amber,
+    accentColor: Colors.amber,
+
+    // icons
+    primaryIconTheme: IconThemeData(color: Colors.white),
+    iconTheme: IconThemeData(color: Colors.amber),
+    accentIconTheme: IconThemeData(color: Colors.amber),
+
+    //app bar
+    appBarTheme: AppBarTheme(
+        textTheme: TextTheme(
+          overline: TextStyle(color: Colors.black),
+          caption: TextStyle(color: Colors.black),
+          headline1: TextStyle(color: Colors.black),
+          headline2: TextStyle(color: Colors.black),
+          headline3: TextStyle(color: Colors.black),
+          headline4: TextStyle(color: Colors.black),
+          headline5: TextStyle(color: Colors.black),
+          headline6: TextStyle(color: Colors.black),
+          bodyText1: TextStyle(fontFamily: 'Hind', color: Colors.black),
+          bodyText2: TextStyle(fontFamily: 'Hind', color: Colors.black),
+        ),
+        iconTheme: IconThemeData(color: Colors.amber)),
+    accentColorBrightness: Brightness.light,
+
+    //floating action button
     floatingActionButtonTheme:
         FloatingActionButtonThemeData(backgroundColor: Colors.amber),
-    appBarTheme: AppBarTheme(
-      color: Colors.white,
-      iconTheme: IconThemeData(
-        color: Colors.black,
-      ),
+    primaryTextTheme: TextTheme(
+      headline1: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+      headline2: TextStyle(color: Colors.black),
+      headline3: TextStyle(color: Colors.black),
+      headline4: TextStyle(color: Colors.black),
+      headline5: TextStyle(color: Colors.black),
+      headline6: TextStyle(color: Colors.black),
+      bodyText1: TextStyle(fontFamily: 'Hind', color: Colors.black),
+      bodyText2: TextStyle(fontFamily: 'Hind', color: Colors.black),
     ),
-    colorScheme: ColorScheme.light(
-      primary: Colors.white,
-      onPrimary: Colors.black,
-      primaryVariant: Colors.black,
-    ),
-    cardTheme: CardTheme(
-      color: Colors.white,
-    ),
-    iconTheme: IconThemeData(
-      color: Colors.black,
+
+    // text styling for headlines, titles, bodies of text, and more.
+    accentTextTheme: TextTheme(
+      headline1: TextStyle(color: Colors.black),
+      headline2: TextStyle(color: Colors.black),
+      headline3: TextStyle(color: Colors.black),
+      headline4: TextStyle(color: Colors.black),
+      headline5: TextStyle(color: Colors.black),
+      headline6: TextStyle(color: Colors.black),
+      bodyText1: TextStyle(fontFamily: 'Hind', color: Colors.black),
+      bodyText2: TextStyle(fontFamily: 'Hind', color: Colors.black),
     ),
     textTheme: TextTheme(
-      bodyText1: TextStyle(
-        color: Colors.black,
-      ),
-      bodyText2: TextStyle(
-        color: Colors.black,
-      ),
-      headline6: TextStyle(
-        color: Colors.black,
-      ),
-      headline1: TextStyle(
-        color: Colors.black,
-      ),
-      headline2: TextStyle(
-        color: Colors.black,
-      ),
-      headline3: TextStyle(
-        color: Colors.black,
-      ),
-      headline4: TextStyle(
-        color: Colors.black,
-      ),
-      headline5: TextStyle(
-        color: Colors.black,
-      ),
-      subtitle1: TextStyle(
-        color: Colors.grey[900],
-      ),
-      subtitle2: TextStyle(
-        color: Colors.grey[900],
-      ),
+      headline1: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+      headline2: TextStyle(color: Colors.black),
+      headline3: TextStyle(color: Colors.black),
+      headline4: TextStyle(color: Colors.black),
+      headline5: TextStyle(color: Colors.black),
+      headline6: TextStyle(color: Colors.black),
+      bodyText1: TextStyle(fontFamily: 'Hind', color: Colors.black),
+      bodyText2: TextStyle(fontFamily: 'Hind', color: Colors.black),
     ),
   );
-
+  
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey[900],
     appBarTheme: AppBarTheme(
@@ -78,7 +83,7 @@ class AppTheme {
       primaryVariant: Colors.grey[900],
     ),
     cardTheme: CardTheme(
-      color: Colors.grey[900],
+      color: Colors.white,
     ),
     iconTheme: IconThemeData(
       color: Colors.white54,

@@ -56,14 +56,11 @@ class _SelectionPageState extends State<SelectionPage> {
         appBar: AppBar(
           centerTitle: true,
           leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.amber),
+              icon: Icon(Icons.arrow_back),
               onPressed: () {
                 Get.offNamed('/MainScreen');
               }),
-          title: const Text(
-            'Selection Page',
-            style: TextStyle(color: Colors.amber),
-          ),
+          title: Text('Selection Page'),
           elevation: 0,
           backgroundColor: Colors.transparent,
         ),
@@ -76,10 +73,11 @@ class _SelectionPageState extends State<SelectionPage> {
                 padding: const EdgeInsets.only(
                     left: 30.0, top: 30.0, right: 30.0, bottom: 15.0),
                 child: TextFormField(
+                  style: TextStyle(
+                      color: Get.isDarkMode ? Colors.white : Colors.black),
                   autofocus: true,
                   controller: _itemController,
                   decoration: InputDecoration(
-                    focusColor: Colors.amber,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
@@ -93,6 +91,8 @@ class _SelectionPageState extends State<SelectionPage> {
                 padding: const EdgeInsets.only(
                     left: 30.0, top: 30.0, right: 30.0, bottom: 15.0),
                 child: TextFormField(
+                  style: TextStyle(
+                      color: Get.isDarkMode ? Colors.white : Colors.black),
                   autofocus: true,
                   controller: _nameController,
                   decoration: InputDecoration(
@@ -112,8 +112,7 @@ class _SelectionPageState extends State<SelectionPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
-                    child: const Text('Confirm',
-                        style: TextStyle(color: Colors.white)),
+                    child: Text('Confirm'),
                     onPressed: _isDisabled
                         ? null
                         : () {

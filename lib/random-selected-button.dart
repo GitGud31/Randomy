@@ -37,19 +37,11 @@ class RandomSelectButton extends StatelessWidget {
                 children: [
                   Text(
                     '${_data[selected].itemName}',
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.black,
-                      fontSize: 20,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   Text(
                     '${_data[selected].creatorName}',
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
+                    style: TextStyle(fontStyle: FontStyle.italic, fontSize: 15),
                   ),
                 ],
               ),
