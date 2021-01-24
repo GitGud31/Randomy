@@ -76,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
                   padding:
                       const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                   child: Dismissible(
-                    key: Key(listController.list[index].toString()),
+                    key: UniqueKey(),
                     direction: DismissDirection.endToStart,
                     background: Material(
                       child: Container(
