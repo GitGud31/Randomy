@@ -1,4 +1,3 @@
-import 'package:Randomy/views/main-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +27,7 @@ class _SelectionPageState extends State<SelectionPage> {
     super.dispose();
   }
 
-  void _disableButton(String _) {
+  void _disableConfirmButton(String _) {
     if (_itemController.value.text.isEmpty ||
         _nameController.value.text.isEmpty) {
       setState(() {
@@ -75,7 +74,7 @@ class _SelectionPageState extends State<SelectionPage> {
                     ),
                     labelText: 'Type here...',
                   ),
-                  onChanged: _disableButton,
+                  onChanged: _disableConfirmButton,
                 ),
               ),
               Container(
@@ -93,7 +92,7 @@ class _SelectionPageState extends State<SelectionPage> {
                     ),
                     labelText: 'Your name here',
                   ),
-                  onChanged: _disableButton,
+                  onChanged: _disableConfirmButton,
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 2.9),
