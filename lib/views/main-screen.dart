@@ -51,19 +51,17 @@ class _MainScreenState extends State<MainScreen> {
             IconButton(
               icon: Icon(Icons.help),
               onPressed: () async {
-                await showDialog(
-                    context: context,
-                    builder: (_) {
-                      return AlertDialog(
-                        title: Text('Description'),
-                        content: Text(
-                          'Simple Application that selects a random element from user List on inputs.',
-                          style: TextStyle(
-                              color:
-                                  Get.isDarkMode ? Colors.white : Colors.black),
-                        ),
-                      );
-                    });
+                Get.dialog(
+                  AlertDialog(
+                    title: Text('Description'),
+                    content: Text(
+                      'Simple Application that selects a random element from user List on inputs.',
+                      style: TextStyle(
+                          color: Get.isDarkMode ? Colors.white : Colors.black),
+                    ),
+                  ),
+                  useSafeArea: true,
+                );
               },
             ),
           ],
@@ -71,6 +69,9 @@ class _MainScreenState extends State<MainScreen> {
         body: Obx(() => ListView.builder(
               itemCount: listController.list.length,
               itemBuilder: (_, index) {
+                //
+                print(listController.list.length.toString());
+
                 return Padding(
                   padding:
                       const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),

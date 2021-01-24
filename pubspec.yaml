@@ -27,6 +27,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   flutter_launcher_icons: ^0.8.1
   get: ^3.24.0
+  get_storage: ^1.4.0
 
 flutter_icons:
   image_path: "assets/toss.png"

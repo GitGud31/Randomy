@@ -29,17 +29,8 @@ class _SelectionPageState extends State<SelectionPage> {
   }
 
   void _disableButton(String _) {
-    if (_itemController.value.text.isEmpty) {
-      setState(() {
-        _isDisabled = true;
-      });
-    } else {
-      setState(() {
-        _isDisabled = false;
-      });
-    }
-
-    if (_nameController.value.text.isEmpty) {
+    if (_itemController.value.text.isEmpty ||
+        _nameController.value.text.isEmpty) {
       setState(() {
         _isDisabled = true;
       });
@@ -60,7 +51,8 @@ class _SelectionPageState extends State<SelectionPage> {
               onPressed: () {
                 Get.offNamed('/MainScreen');
               }),
-          title: Text('Selection Page', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          title: Text('Selection Page',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
           elevation: 0,
           backgroundColor: Colors.transparent,
         ),
@@ -123,6 +115,7 @@ class _SelectionPageState extends State<SelectionPage> {
                             user.creatorName = _nameController.value.text;
                             user.itemName = _itemController.value.text;
 
+                            //Populate the list.
                             Get.arguments.list.add(user);
 
                             _nameController.clear();
