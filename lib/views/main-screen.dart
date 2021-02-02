@@ -11,8 +11,6 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-//TODO: add comments
-
 class _MainScreenState extends State<MainScreen> {
   final ListController listController = Get.put(ListController());
 
