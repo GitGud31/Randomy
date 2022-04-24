@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../utils/user.dart';
+import '../models/user.dart';
 
 class SelectionPage extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class SelectionPage extends StatefulWidget {
 class _SelectionPageState extends State<SelectionPage> {
   final _itemController = TextEditingController();
   final _nameController = TextEditingController();
-  bool _isDisabled;
+  late bool _isDisabled;
 
   @override
   void initState() {

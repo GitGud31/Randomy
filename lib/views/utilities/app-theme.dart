@@ -80,8 +80,8 @@ class AppTheme {
       ),
     ),
     colorScheme: ColorScheme.light(
-      primary: Colors.grey[900],
-      onPrimary: Colors.grey[900],
+      primary: Colors.grey[900]!,
+      onPrimary: Colors.grey[900]!,
       primaryVariant: Colors.grey[900],
     ),
     cardTheme: CardTheme(

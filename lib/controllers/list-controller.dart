@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../utils/user.dart';
+import '../models/user.dart';
 
 class ListController extends GetxController {
   /// items list
-  List<User> list = List<User>().obs;
+  RxList list = <User>[].obs;
 
   /// sharedPreferences
   static final _savedList = () => GetStorage('MyPrefList');

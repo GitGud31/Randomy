@@ -5,8 +5,12 @@ import 'package:get/get.dart';
 
 import 'views/utilities/app-theme.dart';
 
-void main() async{
-  
+//TODO: migrate to Null safety
+//TODO: migrate to Riverpod
+//TODO: migrate to FlexColorScheme
+//TODO: migrate to Hive
+
+void main() async {
   //await GetStorage.init();
   runApp(App());
 }

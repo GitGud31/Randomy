@@ -3,6 +3,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../models/user.dart';
 import '../random-selected-button.dart';
 import 'utilities/app-theme.dart';
 
@@ -12,8 +13,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final ListController listController = Get.put(ListController());
-
+  final listController = Get.put(ListController());
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           RandomSelectButton(
-            data: listController.list,
+            data: listController.list as List<User>,
             key: Key('random button'),
           ),
           SizedBox(height: 10),

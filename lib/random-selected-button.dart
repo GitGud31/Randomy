@@ -1,13 +1,13 @@
 import 'dart:math';
 
-import 'package:Randomy/utils/user.dart';
+import 'package:Randomy/models/user.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 class RandomSelectButton extends StatelessWidget {
   const RandomSelectButton({
-    Key key,
-    @required List<User> data,
+    Key? key,
+    required List<User> data,
   })  : _data = data,
         super(key: key);
 
