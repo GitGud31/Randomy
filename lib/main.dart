@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import 'views/utilities/app-theme.dart';
 
-//TODO: migrate to Null safety
 //TODO: migrate to Riverpod
 //TODO: migrate to FlexColorScheme
 //TODO: migrate to Hive
