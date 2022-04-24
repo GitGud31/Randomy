@@ -1,37 +1,26 @@
-import 'package:Randomy/views/main-screen.dart';
-import 'package:Randomy/views/selection-page.dart';
+import 'package:Randomy/screens/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'views/utilities/app-theme.dart';
+import '/app-theme.dart';
 
-//TODO: migrate to Riverpod
+//TODO: update APK
 //TODO: migrate to FlexColorScheme
 //TODO: migrate to Hive
+//TODO: migrate to GoRouter
 
 void main() async {
-  //await GetStorage.init();
-  runApp(App());
+  runApp(
+    ProviderScope(child: App()),
+  );
 }
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       theme: AppTheme.lightTheme,
       home: MainScreen(),
-      getPages: [
-        GetPage(
-          name: '/MainScreen',
-          page: () => MainScreen(),
-          transition: Transition.leftToRight,
-        ),
-        GetPage(
-          name: '/SelectionPage',
-          page: () => SelectionPage(),
-          transition: Transition.rightToLeft,
-        ),
-      ],
     );
   }
 }

@@ -1,22 +1,20 @@
 import 'dart:math';
 
-import 'package:Randomy/models/user.dart';
+import 'package:Randomy/controllers/items_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RandomSelectButton extends StatelessWidget {
-  const RandomSelectButton({
-    Key? key,
-    required List<User> data,
-  })  : _data = data,
-        super(key: key);
+import 'utils/alerts.dart';
 
-  final List<User> _data;
-
+class RandomPickerButton extends ConsumerWidget {
+  const RandomPickerButton({Key? key});
   @override
-  Widget build(BuildContext context) {
-    Random random = Random();
-    int selected;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final items = ref.watch(itemsProvider);
+
+    final random = Random();
+    late int selected;
 
     return FloatingActionButton(
         child: CircleAvatar(
@@ -25,29 +23,32 @@ class RandomSelectButton extends StatelessWidget {
           child: Image.asset('assets/dice.png', color: Colors.white),
         ),
         onPressed: () {
-          selected = random.nextInt(_data.length);
+          selected = random.nextInt(items.length);
 
-          AwesomeDialog(
+          Alerts.awesomeDialog(
             context: context,
-            animType: AnimType.SCALE,
             dialogType: DialogType.SUCCES,
-            btnOkColor: Color(0xFFFFC107),
+            animType: AnimType.SCALE,
+            okBtnColor: Color(0xFFFFC107),
+            okText: 'Ok',
+            okOnPress: () {},
+            cancelText: 'Cancel',
+            cancelBtnPress: () {},
             body: Center(
               child: Column(
                 children: [
                   Text(
-                    '${_data[selected].itemName}',
+                    '${items[selected].itemName}',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   Text(
-                    '${_data[selected].creatorName}',
+                    '${items[selected].creatorName}',
                     style: TextStyle(fontStyle: FontStyle.italic, fontSize: 15),
                   ),
                 ],
               ),
             ),
-            btnOkOnPress: () {},
-          )..show();
+          );
         });
   }
 }
