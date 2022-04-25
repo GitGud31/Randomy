@@ -99,14 +99,13 @@ class ThemeButtonBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return PopupMenuButton<ThemeMode>(
+    return PopupMenuButton<String>(
       icon: Icon(Icons.brightness_6),
       initialValue: ref.watch(themeProvider),
       onSelected: (selected) =>
           ref.watch(themeProvider.notifier).setTheme = selected,
-      itemBuilder: (_) =>
-          [ThemeMode.system, ThemeMode.light, ThemeMode.dark].map((mode) {
-        return PopupMenuItem<ThemeMode>(value: mode, child: Text(mode.name));
+      itemBuilder: (_) => ["System", "Light", "Dark"].map((mode) {
+        return PopupMenuItem<String>(value: mode, child: Text(mode));
       }).toList(),
     );
   }

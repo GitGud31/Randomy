@@ -1,16 +1,38 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
-  final initialValue = ThemeMode.system;
+final themeProvider = StateNotifierProvider<ThemeNotifier, String>((ref) {
+  final initialValue = ref.watch(themePersistProvider).savedTheme;
 
-  return ThemeNotifier(initialValue);
+  return ThemeNotifier(ref, initialValue);
 });
 
-class ThemeNotifier extends StateNotifier<ThemeMode> {
-  ThemeNotifier(state) : super(state);
+final themePersistProvider = Provider<ThemePersist>((_) => ThemePersist());
 
-  set setTheme(ThemeMode mode) => state = mode;
+class ThemeNotifier extends StateNotifier<String> {
+  ThemeNotifier(this.ref, String state) : super(state);
 
-  ThemeMode get theme => state;
+  final Ref ref;
+
+  String get theme => state;
+
+  set setTheme(String mode) {
+    state = mode;
+    ref.watch(themePersistProvider).saveTheme(mode);
+  }
+}
+
+class ThemePersist {
+  late final Box<String> themeBox;
+
+  String get savedTheme => themeBox.values.first;
+
+  Future<void> initTheme() async {
+    await Hive.openBox<String>('theme').then((mode) => themeBox = mode);
+
+    //first time loading
+    if (themeBox.values.isEmpty) themeBox.add("System");
+  }
+
+  Future<void> saveTheme(String mode) async => await themeBox.put(0, mode);
 }
