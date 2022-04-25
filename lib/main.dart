@@ -1,6 +1,5 @@
 import 'package:Randomy/controllers/routes_controller.dart';
 import 'package:Randomy/controllers/theme_controller.dart';
-import 'package:Randomy/screens/home.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +8,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 //TODO: update APK
 //TODO: update README
 //TODO: add animation to dice, Rive?
-//TODO: migrate to GoRouter
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

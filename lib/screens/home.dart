@@ -1,6 +1,4 @@
 import 'package:Randomy/controllers/items_controller.dart';
-import 'package:Randomy/controllers/theme_controller.dart';
-import 'package:Randomy/screens/add_item.dart';
 import 'package:Randomy/utils/alerts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../components/item_tile.dart';
 import '../components/random_picker_button.dart';
+import '../components/theme_button_builder.dart';
 import '../consts/colors.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -88,19 +87,4 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 }
 
-class ThemeButtonBuilder extends ConsumerWidget {
-  const ThemeButtonBuilder({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return PopupMenuButton<String>(
-      icon: Icon(Icons.brightness_6),
-      initialValue: ref.watch(themeProvider),
-      onSelected: (selected) =>
-          ref.watch(themeProvider.notifier).setTheme = selected,
-      itemBuilder: (_) => ["System", "Light", "Dark"].map((mode) {
-        return PopupMenuItem<String>(value: mode, child: Text(mode));
-      }).toList(),
-    );
-  }
-}

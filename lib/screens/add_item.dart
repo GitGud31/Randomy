@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../components/textfield_builder.dart';
 import '../consts/colors.dart';
 import '../models/item.dart';
-import 'home.dart';
 
 class AddItemScreen extends ConsumerStatefulWidget {
   @override
@@ -32,7 +31,6 @@ class _AddItemScreenState extends ConsumerState<AddItemScreen> {
     super.dispose();
   }
 
-  //TODO: implement
   void _disableConfirmButton(String text) {
     if (_itemController.value.text.isEmpty ||
         _nameController.value.text.isEmpty) {

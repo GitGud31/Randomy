@@ -17,39 +17,40 @@ class RandomPickerButton extends ConsumerWidget {
     final random = Random();
     late int selected;
 
+    void _picker() {
+      selected = random.nextInt(items.length);
+
+      Alerts.awesomeDialog(
+        context: context,
+        dialogType: DialogType.SUCCES,
+        animType: AnimType.SCALE,
+        okText: 'Ok',
+        okOnPress: () => Navigator.pop(context),
+        cancelText: 'Cancel',
+        cancelBtnPress: () => Navigator.pop(context),
+        body: Center(
+          child: Column(
+            children: [
+              Text(
+                '${items[selected].itemName}',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              Text(
+                '${items[selected].creatorName}',
+                style: TextStyle(fontStyle: FontStyle.italic, fontSize: 15),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return FloatingActionButton(
         child: CircleAvatar(
           radius: 20,
           backgroundColor: transparent,
           child: Image.asset('assets/dice.png', color: white),
         ),
-        onPressed: () {
-          //TODO: fix 
-          selected = random.nextInt(items.length);
-
-          Alerts.awesomeDialog(
-            context: context,
-            dialogType: DialogType.SUCCES,
-            animType: AnimType.SCALE,
-            okText: 'Ok',
-            okOnPress: () => Navigator.pop(context),
-            cancelText: 'Cancel',
-            cancelBtnPress: () => Navigator.pop(context),
-            body: Center(
-              child: Column(
-                children: [
-                  Text(
-                    '${items[selected].itemName}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  Text(
-                    '${items[selected].creatorName}',
-                    style: TextStyle(fontStyle: FontStyle.italic, fontSize: 15),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
+        onPressed: items.isEmpty ? null : _picker);
   }
 }
