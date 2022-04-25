@@ -24,6 +24,7 @@ class RandomPickerButton extends ConsumerWidget {
           child: Image.asset('assets/dice.png', color: white),
         ),
         onPressed: () {
+          //TODO: fix 
           selected = random.nextInt(items.length);
 
           Alerts.awesomeDialog(

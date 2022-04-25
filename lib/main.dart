@@ -1,3 +1,4 @@
+import 'package:Randomy/controllers/theme_controller.dart';
 import 'package:Randomy/screens/home.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +14,13 @@ void main() async {
   );
 }
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeProvider);
+
     return MaterialApp(
-      themeMode: ThemeMode.light,
+      themeMode: theme,
       darkTheme: FlexColorScheme.dark(scheme: FlexScheme.amber).toTheme,
       theme: FlexColorScheme.light(scheme: FlexScheme.amber).toTheme,
       home: HomeScreen(),

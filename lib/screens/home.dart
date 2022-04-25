@@ -1,4 +1,5 @@
 import 'package:Randomy/controllers/items_controller.dart';
+import 'package:Randomy/controllers/theme_controller.dart';
 import 'package:Randomy/screens/add_item.dart';
 import 'package:Randomy/utils/alerts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -46,7 +47,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         centerTitle: true,
         elevation: 0,
         title: Text('Randomy', style: appBarStyle),
-        leading: IconButton(icon: Icon(Icons.brightness_6), onPressed: () {}),
+        leading: ThemeButtonBuilder(),
         actions: [
           IconButton(
             icon: Icon(Icons.delete),
@@ -89,6 +90,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ThemeButtonBuilder extends ConsumerWidget {
+  const ThemeButtonBuilder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return PopupMenuButton<ThemeMode>(
+      icon: Icon(Icons.brightness_6),
+      initialValue: ref.watch(themeProvider),
+      onSelected: (selected) =>
+          ref.watch(themeProvider.notifier).setTheme = selected,
+      itemBuilder: (_) =>
+          [ThemeMode.system, ThemeMode.light, ThemeMode.dark].map((mode) {
+        return PopupMenuItem<ThemeMode>(value: mode, child: Text(mode.name));
+      }).toList(),
     );
   }
 }
