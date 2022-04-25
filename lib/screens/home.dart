@@ -5,6 +5,7 @@ import 'package:Randomy/utils/alerts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../components/item_tile.dart';
 import '../components/random_picker_button.dart';
@@ -33,14 +34,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           FloatingActionButton(
               heroTag: const Key('selection page button'),
               child: Icon(Icons.add, size: 30, color: white),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => AddItemScreen(),
-                  ),
-                );
-              }),
+              onPressed: () => context.goNamed("add-item")),
         ],
       ),
       appBar: AppBar(

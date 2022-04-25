@@ -1,6 +1,7 @@
 import 'package:Randomy/controllers/items_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../components/textfield_builder.dart';
 import '../consts/colors.dart';
@@ -45,6 +46,20 @@ class _AddItemScreenState extends ConsumerState<AddItemScreen> {
     }
   }
 
+  void _addItem(ItemsNotifier itemsNotifier) {
+    _isDisabled = true;
+
+    itemsNotifier.add(Item(
+      creatorName: _nameController.value.text,
+      itemName: _itemController.value.text,
+    ));
+
+    _nameController.clear();
+    _itemController.clear();
+
+    context.goNamed("home");
+  }
+
   @override
   Widget build(BuildContext context) {
     final itemsNotifier = ref.watch(itemsProvider.notifier);
@@ -56,12 +71,7 @@ class _AddItemScreenState extends ConsumerState<AddItemScreen> {
           elevation: 0,
           leading: IconButton(
               icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => HomeScreen()),
-                );
-              }),
+              onPressed: () => context.goNamed("home")),
         ),
         body: SafeArea(
           child: ListView(
@@ -80,32 +90,14 @@ class _AddItemScreenState extends ConsumerState<AddItemScreen> {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: Size(
-                    MediaQuery.of(context).size.width - 30,
-                    36,
-                  )),
-                  child: const Text('Confirm'),
-                  onPressed: _isDisabled
-                      ? null
-                      : () {
-                          _isDisabled = true;
-
-                          itemsNotifier.add(
-                            Item(
-                              creatorName: _nameController.value.text,
-                              itemName: _itemController.value.text,
-                            ),
-                          );
-
-                          _nameController.clear();
-                          _itemController.clear();
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => HomeScreen()),
-                          );
-                        }),
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size(
+                  MediaQuery.of(context).size.width - 30,
+                  36,
+                )),
+                child: const Text('Confirm'),
+                onPressed: _isDisabled ? null : () => _addItem(itemsNotifier),
+              ),
             ],
           ),
         ));
