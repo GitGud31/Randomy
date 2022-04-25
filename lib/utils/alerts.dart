@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -29,24 +31,20 @@ class Alerts {
     required DialogType dialogType,
     required Widget body,
     required String cancelText,
-    required String okText,
     required VoidCallback cancelBtnPress,
+    required String okText,
     required VoidCallback okOnPress,
-    required Color okBtnColor,
   }) {
     return AwesomeDialog(
       context: context,
       animType: animType,
       dialogType: dialogType,
-      body: body,
-      btnCancel: TextButton(
-        child: Text(cancelText),
-        onPressed: cancelBtnPress,
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        child: body,
       ),
-      btnCancelColor: Colors.blue,
-      btnOkText: okText,
-      btnOkColor: okBtnColor,
-      btnOkOnPress: okOnPress,
+      btnCancel: TextButton(child: Text(cancelText), onPressed: cancelBtnPress),
+      btnOk: ElevatedButton(child: Text(okText), onPressed: okOnPress),
     )..show();
   }
 }
