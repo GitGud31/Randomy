@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../components/item_tile.dart';
-import '../components/random_picker_button.dart';
-import '../components/theme_button_builder.dart';
+import '../widgets/item_tile.dart';
+import '../widgets/random_picker_button.dart';
+import '../widgets/theme_button_builder.dart';
 import '../consts/colors.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -86,5 +86,3 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 }
-
-

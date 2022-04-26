@@ -46,10 +46,14 @@ class RandomPickerButton extends ConsumerWidget {
     }
 
     return FloatingActionButton(
-        child: CircleAvatar(
-          radius: 20,
-          backgroundColor: transparent,
-          child: Image.asset('assets/dice.png', color: white),
+        child: Container(
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: transparent,
+            image: DecorationImage(
+              image: AssetImage('assets/toss.png'),
+            ),
+          ),
         ),
         onPressed: items.isEmpty ? null : _picker);
   }

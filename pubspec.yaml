@@ -44,5 +44,4 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/dice.png
-    - assets/toss.png
+    - assets/
