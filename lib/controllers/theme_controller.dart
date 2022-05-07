@@ -35,4 +35,6 @@ class ThemePersist {
   }
 
   Future<void> saveTheme(String mode) async => await themeBox.put(0, mode);
+
+  Future<void> deleteDatabase() async => await Hive.deleteBoxFromDisk('theme');
 }

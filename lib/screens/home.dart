@@ -40,7 +40,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         centerTitle: true,
         elevation: 0,
         title: Text('Randomy', style: appBarStyle),
-        leading: ThemeButtonBuilder(),
+        leading: ThemeButtonBuilder(key: Key('theme button builder')),
         actions: [
           IconButton(
             icon: Icon(Icons.delete),

@@ -30,6 +30,7 @@ dependencies:
   flex_color_scheme: ^5.0.0
   hive_flutter: ^1.1.0
   go_router: ^3.0.7
+  hive_test: ^1.0.1
 
 flutter_icons:
   image_path: "assets/toss.png"
