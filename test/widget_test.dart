@@ -1,5 +1,5 @@
+import 'package:Randomy/screens/add_item.dart';
 import 'package:Randomy/screens/home.dart';
-import 'package:Randomy/widgets/theme_button_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,7 +29,6 @@ void main() async {
   await themePersist.deleteDatabase();
 
   await themePersist.initTheme();
-
 
   //test case: check current theme mode
   testWidgets(
@@ -182,6 +181,36 @@ void main() async {
       */
     //debugPrint(capturedTheme);
     expect(_getTheme(capturedTheme), equals(ThemeMode.dark));
+  });
+
+  //test case: Navigate to AddItemScreen
+  testWidgets('''Navigate to AddItemScreen''', (tester) async {
+    const tooltipText = 'Add item';
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          themePersistProvider.overrideWithValue(themePersist),
+        ],
+        child: App(),
+      ),
+    );
+
+    /**
+     * Expect to find Add item FloatingActionButton
+     */
+    expect(find.byTooltip(tooltipText), findsOneWidget);
+    expect(find.byIcon(Icons.add), findsOneWidget);
+
+    //Tapping the button, should navigate to AddItemScreen
+    await tester.tap(find.byTooltip(tooltipText));
+    await tester.pump();
+    await tester.pumpAndSettle();
+
+    /**
+     * Expects to be in AddItemScreen
+     */
+    expect(find.byType(AddItemScreen), findsOneWidget);
   });
 
   //TODO: test case: add item

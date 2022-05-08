@@ -26,14 +26,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          RandomPickerButton(
-            key: const Key('random button'),
-          ),
+          RandomPickerButton(key: const Key('random button')),
           const SizedBox(height: 10),
           FloatingActionButton(
-              heroTag: const Key('selection page button'),
-              child: Icon(Icons.add, size: 30, color: white),
-              onPressed: () => context.goNamed("add-item")),
+            tooltip: 'Add item',
+            heroTag: const Key('selection page button'),
+            child: Icon(Icons.add, size: 30, color: white),
+            onPressed: () => context.goNamed("add-item"),
+          ),
         ],
       ),
       appBar: AppBar(
