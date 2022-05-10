@@ -44,13 +44,13 @@ class _AddItemScreenState extends ConsumerState<AddItemScreen> {
     }
   }
 
-  void _addItem(ItemsNotifier itemsNotifier) {
+  void _addItem() {
     _isDisabled = true;
 
-    itemsNotifier.add(Item(
-      creatorName: _nameController.value.text,
-      itemName: _itemController.value.text,
-    ));
+    ref.watch(itemsProvider.notifier).add(Item(
+          creatorName: _nameController.value.text,
+          itemName: _itemController.value.text,
+        ));
 
     _nameController.clear();
     _itemController.clear();
@@ -60,7 +60,6 @@ class _AddItemScreenState extends ConsumerState<AddItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final itemsNotifier = ref.watch(itemsProvider.notifier);
 
     return Scaffold(
         appBar: AppBar(
@@ -76,12 +75,14 @@ class _AddItemScreenState extends ConsumerState<AddItemScreen> {
             padding: const EdgeInsets.all(16),
             children: [
               TextFieldBuilder(
+                key: Key('Item textfield'),
                 controller: _itemController,
                 labelText: 'Item',
                 onChanged: _disableConfirmButton,
               ),
               const SizedBox(height: 30),
               TextFieldBuilder(
+                key: Key('Yourname textfield'),
                 controller: _nameController,
                 onChanged: _disableConfirmButton,
                 labelText: 'Your name',
@@ -93,8 +94,8 @@ class _AddItemScreenState extends ConsumerState<AddItemScreen> {
                   MediaQuery.of(context).size.width - 30,
                   36,
                 )),
-                child: const Text('Confirm'),
-                onPressed: _isDisabled ? null : () => _addItem(itemsNotifier),
+                child: const Text('Add'),
+                onPressed: _isDisabled ? null : _addItem,
               ),
             ],
           ),

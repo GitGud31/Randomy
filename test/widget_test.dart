@@ -1,5 +1,8 @@
+import 'package:Randomy/controllers/items_controller.dart';
+import 'package:Randomy/models/item.dart';
 import 'package:Randomy/screens/add_item.dart';
 import 'package:Randomy/screens/home.dart';
+import 'package:Randomy/widgets/item_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -213,9 +216,88 @@ void main() async {
     expect(find.byType(AddItemScreen), findsOneWidget);
   });
 
-  //TODO: test case: add item
+  //test case: fill both TextFields to add an Item to HomeScreen
+  testWidgets('''Fill both TextFields to add an Item to HomeScreen''',
+      (tester) async {
+    const tooltipText = 'Add item';
+    final itemKey = Key('Item textfield');
+    final yournameKey = Key('Yourname textfield');
 
-  //TODO: test case: remove item
+    await tester.pumpWidget(
+      ProviderScope(overrides: [
+        themePersistProvider.overrideWithValue(themePersist),
+      ], child: App()),
+    );
 
-  //TODO: test case: empty items list
+    //Navigate to AddItemScreen
+    await tester.tap(find.byTooltip(tooltipText));
+    await tester.pumpAndSettle();
+    expect(find.byType(AddItemScreen), findsOneWidget);
+
+    /** 
+     * Expect to find two text fields
+    */
+    expect(find.byType(TextFormField), findsNWidgets(2));
+    expect(find.byKey(itemKey), findsOneWidget);
+    expect(find.byKey(yournameKey), findsOneWidget);
+
+    //fill the textfields
+    await tester.enterText(find.byKey(itemKey), 'item 1');
+    await tester.enterText(find.byKey(yournameKey), 'name 1');
+    await tester.pump();
+
+    expect(find.text('item 1'), findsOneWidget);
+    expect(find.text('name 1'), findsOneWidget);
+
+    //Tap the 'Add' button
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
+
+    /**
+     * Expect to be nagivate back to HomeScreen
+     */
+    expect(find.byType(AddItemScreen), findsNothing);
+    expect(find.byType(HomeScreen), findsOneWidget);
+
+    /** 
+     * Expect to find one ItemTileBuilder in HomeScreen
+     */
+    expect(find.byType(ItemTileBuilder), findsOneWidget);
+  });
+
+  //test case: remove item
+  testWidgets('''Dismisse Item to delete ''', (tester) async {
+    //Add one Item manually
+    final items = [Item(itemName: 'item 1', creatorName: 'name 1')];
+    ItemsNotifier itemsNotifier = ItemsNotifier(items);
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          themePersistProvider.overrideWithValue(themePersist),
+          itemsProvider.overrideWithValue(itemsNotifier),
+        ],
+        child: App(),
+      ),
+    );
+
+    await tester.pump();
+
+    /** 
+     * Expect to find one ItemTileBuilder in HomeScreen
+     */
+    expect(find.byType(ItemTileBuilder), findsOneWidget);
+    expect(find.text('item 1'), findsOneWidget);
+    expect(find.text('name 1'), findsOneWidget);
+
+    //swipe right to left
+    await tester.drag(find.byType(Dismissible), const Offset(-500.0, 0.0));
+    await tester.pumpAndSettle();
+
+    /** 
+     * Expect to find no text
+    */
+    expect(find.text('item 1'), findsNothing);
+    expect(find.text('name 1'), findsNothing);
+  });
 }

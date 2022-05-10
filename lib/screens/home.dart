@@ -77,6 +77,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           padding: const EdgeInsets.all(20),
           itemCount: items.length,
           itemBuilder: (_, index) => ItemTileBuilder(
+            key: Key('itemKey$index'),
             items: items,
             index: index,
             onDismissed: (direction) => itemsNotifier.delete(index),

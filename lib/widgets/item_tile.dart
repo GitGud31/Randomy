@@ -5,12 +5,13 @@ import '../models/item.dart';
 
 class ItemTileBuilder extends StatelessWidget {
   const ItemTileBuilder({
-    Key? key,
+    required this.key,
     required this.index,
     required this.items,
     required this.onDismissed,
   }) : super(key: key);
 
+  final Key key;
   final List<Item> items;
   final int index;
   final void Function(DismissDirection)? onDismissed;
@@ -18,7 +19,7 @@ class ItemTileBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: UniqueKey(),
+      key: key,
       direction: DismissDirection.endToStart,
       background: Container(
         padding: const EdgeInsets.only(right: 8),
