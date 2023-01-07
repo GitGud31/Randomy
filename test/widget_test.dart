@@ -275,7 +275,7 @@ void main() async {
       ProviderScope(
         overrides: [
           themePersistProvider.overrideWithValue(themePersist),
-          itemsProvider.overrideWithValue(itemsNotifier),
+          itemsProvider.overrideWith((_) => itemsNotifier),
         ],
         child: App(),
       ),

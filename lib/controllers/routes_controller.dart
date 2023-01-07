@@ -5,19 +5,22 @@ import 'package:go_router/go_router.dart';
 import '../screens/add_item.dart';
 import '../screens/error.dart';
 
+const String HOME = 'home';
+const String ADD_ITEM = 'add-item';
+
 final routerProvider = Provider<GoRouter>(
   (_) => GoRouter(
     debugLogDiagnostics: true,
     initialLocation: "/",
     routes: [
       GoRoute(
-        name: "home",
+        name: HOME,
         path: "/",
         builder: (_, __) => HomeScreen(),
       ),
       GoRoute(
-        name: "add-item",
-        path: "/add-item",
+        name: ADD_ITEM,
+        path: "/$ADD_ITEM",
         builder: (_, __) => AddItemScreen(),
       ),
     ],

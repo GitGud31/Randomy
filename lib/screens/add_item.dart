@@ -1,8 +1,10 @@
 import 'package:Randomy/controllers/items_controller.dart';
+import 'package:Randomy/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../controllers/routes_controller.dart';
 import '../widgets/textfield_builder.dart';
 import '../consts/colors.dart';
 import '../models/item.dart';
@@ -55,20 +57,22 @@ class _AddItemScreenState extends ConsumerState<AddItemScreen> {
     _nameController.clear();
     _itemController.clear();
 
-    context.goNamed("home");
+    //context.goNamed(HOME);
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text('Add Item', style: appBarStyle),
           elevation: 0,
           leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => context.goNamed("home")),
+            icon: Icon(Icons.arrow_back),
+            //onPressed: () => context.goNamed(HOME),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
         body: SafeArea(
           child: ListView(

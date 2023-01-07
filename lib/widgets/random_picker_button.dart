@@ -22,8 +22,8 @@ class RandomPickerButton extends ConsumerWidget {
 
       Alerts.awesomeDialog(
         context: context,
-        dialogType: DialogType.SUCCES,
-        animType: AnimType.SCALE,
+        dialogType: DialogType.success,
+        animType: AnimType.scale,
         okText: 'Ok',
         okOnPress: () => Navigator.pop(context),
         cancelText: 'Cancel',

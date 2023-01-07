@@ -1,10 +1,12 @@
-import 'package:Randomy/controllers/items_controller.dart';
+import 'package:Randomy/screens/add_item.dart';
 import 'package:Randomy/utils/alerts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../controllers/items_controller.dart';
+import '../controllers/routes_controller.dart';
 import '../widgets/item_tile.dart';
 import '../widgets/random_picker_button.dart';
 import '../widgets/theme_button_builder.dart';
@@ -32,7 +34,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             tooltip: 'Add item',
             heroTag: const Key('selection page button'),
             child: Icon(Icons.add, size: 30, color: white),
-            onPressed: () => context.goNamed("add-item"),
+            //onPressed: () => context.push("add-item"),
+            onPressed: (() => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => AddItemScreen()),
+                )), 
           ),
         ],
       ),
@@ -46,8 +51,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             icon: Icon(Icons.delete),
             onPressed: () async => Alerts.awesomeDialog(
               context: context,
-              animType: AnimType.SCALE,
-              dialogType: DialogType.ERROR,
+              animType: AnimType.scale,
+              dialogType: DialogType.error,
               cancelText: 'Cancel',
               okText: 'Yes',
               okOnPress: () {
